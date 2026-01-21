@@ -1,6 +1,3 @@
-import subprocess
-import sys
-
 import pandas as pd
 import streamlit as st
 import altair as alt
@@ -338,12 +335,7 @@ def ensure_wordcloud():
         from wordcloud import WordCloud, STOPWORDS
         return WordCloud, STOPWORDS, None
     except Exception as exc:
-        try:
-            subprocess.check_call([sys.executable, "-m", "pip", "install", "wordcloud"])
-            from wordcloud import WordCloud, STOPWORDS
-            return WordCloud, STOPWORDS, None
-        except Exception as install_exc:
-            return None, None, (exc, install_exc)
+        return None, None, exc
 
 
 def render_wordcloud(text_series, stopwords, title):
